@@ -26,7 +26,7 @@ local savedAutoRotateValue = nil
 local recordingStartTimestamp = 0
 local playbackStartTimestamp = 0
 
--- pasta onde vão os TAS (pode mudar o nome se quiser, mas use sempre o mesmo)
+
 local tasStorageFolder = "PrismTAS"
 
 local CurrentSaveName = ""
@@ -35,12 +35,9 @@ local lastLoadedTASName = ""
 local TASFileDropdown
 local markerColor = Color3.fromRGB(180, 80, 255)
 
--- lista em memória usada pelo dropdown (pra não sumir quando listfiles bugar)
+
 local tasOptions = {}
 
---========================
--- 🎨 THEME CUSTOM PRISM
---========================
 local PrismTheme = {
     TextColor = Color3.fromRGB(235, 200, 255),
     Background = Color3.fromRGB(10, 8, 18),
@@ -103,9 +100,7 @@ local Window = Rayfield:CreateWindow({
     KeySystem = false
 })
 
---========================
---   TABS
---========================
+
 local RecordTab = Window:CreateTab("🎥 Gravar", 6023426915)
 local PlaybackTab = Window:CreateTab("⏱ Reproduzir", 6023426923)
 local SettingsTab = Window:CreateTab("⚙ Config", 6031280882)
@@ -342,7 +337,7 @@ local function saveTASToFile(fileName)
         Image = 13087593204
     })
 
-    -- adiciona na lista em memória e atualiza dropdown
+  
     local exists = false
     for _, name in ipairs(tasOptions) do
         if name == fileName then
@@ -385,7 +380,7 @@ local function deleteTASFile(fileName)
         Image = 13087593204
     })
 
-    -- remove da lista em memória e atualiza dropdown
+  
     for i, name in ipairs(tasOptions) do
         if name == fileName then
             table.remove(tasOptions, i)
@@ -619,9 +614,7 @@ local function stopTASPlayback()
     })
 end
 
---========================
---   UI - GRAVAÇÃO
---========================
+
 RecordTab:CreateParagraph({
     Title = "🎥 Gravação TAS",
     Content = "Ative o modo de gravação e use [E] para iniciar e [Q] para parar.\nFeito por toxicy."
@@ -668,15 +661,13 @@ RecordTab:CreateButton({
     end
 })
 
---========================
---   UI - PLAYBACK
---========================
+
 PlaybackTab:CreateParagraph({
     Title = "⏱ Reproduzir TAS",
     Content = "Selecione um TAS salvo, ative o modo e use [E] para iniciar / [Q] para parar."
 })
 
--- carrega TAS existentes AO ABRIR o script
+
 tasOptions = getTASFileListFromDisk()
 
 TASFileDropdown = PlaybackTab:CreateDropdown({
@@ -778,9 +769,7 @@ local PlaybackModeToggle = PlaybackTab:CreateToggle({
     end
 })
 
---========================
---   UI - CONFIG / INFO
---========================
+
 SettingsTab:CreateParagraph({
     Title = "⌨ Controles",
     Content = "Gravação: [E] Iniciar | [Q] Parar\nReprodução: [E] Iniciar | [Q] Parar"
@@ -805,9 +794,7 @@ SettingsTab:CreateColorPicker({
     end
 })
 
---========================
---   INPUT & HEARTBEAT
---========================
+
 UserInputService.InputBegan:Connect(function(inputObject, isProcessedByGame)
     if isProcessedByGame then return end
 
